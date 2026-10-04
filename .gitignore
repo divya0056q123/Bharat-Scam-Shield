@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+venv/
+.venv/
+env/
+
+# IDE/editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# FastAPI / local runtime
+.env
+.env.*
+.pytest_cache/
+.mypy_cache/
+coverage.xml
+htmlcov/
+
+# Build / logs
+*.log
