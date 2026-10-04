@@ -3,6 +3,9 @@
 
 Bharat Scan Shield is an educational investor-awareness tool for Indian retail investors. It helps people inspect suspicious investment messages before trusting them or sending money or personal information. The interface and explanations are available in English and Hindi.
 
+## Hackathon Track
+This project is submitted for **SANGYAN Hackathon, Track A**. Its focus is investor awareness: helping Indian retail investors recognize common warning signs in financial messages, understand why they matter, and verify claims before acting. It is an educational support tool, not financial advice or a guarantee that a message is fraudulent.
+
 ## What it does
 Users can paste a message, speak it, or upload a screenshot. The app highlights warning signs it recognizes, shows the phrases that triggered them, and suggests practical steps such as checking official sources or reporting suspected fraud. Screenshot OCR and speech capture run in the browser.
 
@@ -33,6 +36,29 @@ Optional AI explanation (rules still decide the risk level):
 
 Tests: `python -m unittest discover -s tests -t . -v`. Tests use synthetic examples and are not a real-world accuracy benchmark.
 
+## Project Structure
+```text
+scamshield/
+├── backend/
+│   ├── __init__.py
+│   ├── main.py                 # FastAPI routes and analysis response
+│   └── rules.py                # Explainable warning-signal rules
+├── docs/
+│   ├── Bharat-Scan-Shield-Project-Brief.pdf
+│   ├── PROJECT-BRIEF.html      # Editable brief source
+│   └── SUBMISSION.md           # Hackathon submission notes
+├── frontend/
+│   ├── index.html              # Scanner page
+│   └── welcome.html            # Welcome page
+├── tests/
+│   ├── __init__.py
+│   └── test_rules.py
+├── .gitignore
+├── Procfile
+├── README.md
+└── requirements.txt
+```
+
 ## Deploy free
 Push to GitHub, create a Render/Railway web service. Build: `pip install -r requirements.txt`. Start: `uvicorn backend.main:app --host 0.0.0.0 --port $PORT`. Add ANTHROPIC_API_KEY as an env var (optional).
 
@@ -62,3 +88,8 @@ Push to GitHub, create a Render/Railway web service. Build: `pip install -r requ
 6. **Results:** The browser displays the score, warning signals, matched text, and next steps. Recent checks are kept in the current tab only.
 
 The backend has no database and does not log scanned messages. Scanned text is sent to the analysis service but is not stored by the app. See [Privacy and limitations](#privacy-and-limitations) before enabling optional AI explanations.
+
+## Future Scope
+- Add carefully translated and reviewed support for more Indian languages, such as Marathi, Bengali, and Tamil.
+- Evaluate the rules with a larger, consented set of scam and legitimate-message examples; measure false positives and missed warnings before making accuracy claims.
+- Keep detection rules current using reviewed public advisories, and explore accessible mobile or messaging-based interfaces with privacy safeguards.
