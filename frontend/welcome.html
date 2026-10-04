@@ -87,7 +87,7 @@ footer p{margin:0}
 </main>
 <footer>
   <p id="privacy">Scanned text is sent to the analysis service but not saved. Screenshot files stay on your device.</p>
-  <p id="aiDisclosure">If optional AI explanations are enabled, message text is also sent to Anthropic.</p>
+  <p id="aiDisclosure">Optional AI sends scan text to the configured provider (Gemini or Anthropic); Google's free tier may use content to improve products.</p>
   <p id="disclaimer">Educational use only. This is not financial advice.</p>
 </footer>
 </div>
@@ -96,7 +96,7 @@ const copy={en:{kicker:"Educational investor-awareness tool for Indian users",he
 function setLanguage(language){const text=copy[language];document.documentElement.lang=language;for(const id of ["kicker","headline","lead","startLabel","promise","privacy","disclaimer","checksKicker","checksTitle","checksIntro"]){$(id).textContent=text[{startLabel:"start",promise:"promise",privacy:"privacy",disclaimer:"disclaimer"}[id]||id]};for(let index=0;index<3;index++){$("stepTitle"+(index+1)).textContent=text.titles[index];$("stepText"+(index+1)).textContent=text.texts[index];$("proofTitle"+(index+1)).textContent=text.proofTitles[index];$("proofText"+(index+1)).textContent=text.proofTexts[index]}for(let index=0;index<4;index++)$("signal"+(index+1)).textContent=text.signals[index];$("start").href="/scan?lang="+language;$("en").classList.toggle("active",language==="en");$("hi").classList.toggle("active",language==="hi")}
 function $(id){return document.getElementById(id)}
 $("en").onclick=()=>setLanguage("en");$("hi").onclick=()=>setLanguage("hi");
-const aiDisclosure={en:"If optional AI explanations are enabled, message text is also sent to Anthropic.",hi:"वैकल्पिक AI व्याख्या चालू होने पर संदेश का टेक्स्ट Anthropic को भी भेजा जाता है।"};
+const aiDisclosure={en:"Optional AI sends scan text to the configured provider (Gemini or Anthropic); Google's free tier may use content to improve products.",hi:"वैकल्पिक AI चालू होने पर टेक्स्ट चुने हुए प्रदाता (Gemini या Anthropic) को भेजा जाता है; Google मुफ़्त स्तर पर सामग्री का उपयोग उत्पाद बेहतर करने के लिए कर सकता है।"};
 $("en").addEventListener("click",()=>$("aiDisclosure").textContent=aiDisclosure.en);$("hi").addEventListener("click",()=>$("aiDisclosure").textContent=aiDisclosure.hi);
 </script>
 </body>

@@ -81,7 +81,7 @@ ul{padding-left:20px}li{margin:6px 0}
 </div>
 <p class="hint" id="priv">Your message is not saved. Screenshots are read on your own device.</p>
 <p class="hint" id="educationNote">Educational investor-awareness tool. Not financial advice. Verify independently.</p>
-<p class="hint" id="aiDisclosure">If optional AI explanations are enabled, message text is also sent to Anthropic.</p>
+<p class="hint" id="aiDisclosure">Optional AI sends scan text to the configured provider (Gemini or Anthropic); Google's free tier may use content to improve products.</p>
 <div class="samples hint"><span id="trysmp">Try a sample:</span> <a id="s1">English</a><a id="s2">हिन्दी</a><a id="s3">Fake SEBI link</a></div>
 <div id="status" class="hint" role="status"></div>
 <div class="meta-grid" id="metaGrid">
@@ -124,7 +124,7 @@ function ui(){const t=T[L];document.documentElement.lang=L;$("tag").textContent=
 $("recent").querySelector("strong").textContent=t.recent+(L=="en"?" (this tab only)":" (सिर्फ़ यह टैब)");
 $("en").classList.toggle("on",L=="en");$("hi").classList.toggle("on",L=="hi");}
 $("en").onclick=()=>{L="en";ui()};$("hi").onclick=()=>{L="hi";ui()};
-const aiDisclosure={en:"If optional AI explanations are enabled, message text is also sent to Anthropic.",hi:"वैकल्पिक AI व्याख्या चालू होने पर संदेश का टेक्स्ट Anthropic को भी भेजा जाता है।"};
+const aiDisclosure={en:"Optional AI sends scan text to the configured provider (Gemini or Anthropic); Google's free tier may use content to improve products.",hi:"वैकल्पिक AI चालू होने पर टेक्स्ट चुने हुए प्रदाता (Gemini या Anthropic) को भेजा जाता है; Google मुफ़्त स्तर पर सामग्री का उपयोग उत्पाद बेहतर करने के लिए कर सकता है।"};
 const privacyDisclosure={en:"Scanned text is sent to the analysis service but not saved. Screenshot files stay on your device.",hi:"जाँचा जाने वाला टेक्स्ट विश्लेषण सेवा को भेजा जाता है, पर सेव नहीं होता। स्क्रीनशॉट फ़ाइल आपके डिवाइस पर रहती है।"};
 function updateAiDisclosure(){$("aiDisclosure").textContent=aiDisclosure[L]}
 function updateDisclosures(){$("priv").textContent=privacyDisclosure[L];updateAiDisclosure()}

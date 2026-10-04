@@ -21,7 +21,7 @@ The rule engine assigns weights to detected signals and combines them into a sco
 The score is not a probability, and a low score does not mean a message is safe. The app shows matched phrases so users can understand why a warning appeared.
 
 ## Privacy and limitations
-The app does not store or log scanned messages. Text is sent to the app's analysis service to produce a result. Screenshot image files stay on the user's device; OCR extracts text in the browser. Recent checks remain in the current browser tab only. If optional AI explanations are enabled, message text is also sent to Anthropic; the rule engine still determines the score and risk level.
+The app does not store or log scanned messages. Text is sent to the app's analysis service to produce a result. Screenshot image files stay on the user's device; OCR extracts text in the browser. Recent checks remain in the current browser tab only. If optional AI explanations are enabled, text is sent to the configured provider. Google states that content submitted on Gemini's free tier may be used to improve its products. The rule engine still determines the score and risk level. Do not submit sensitive personal or financial information.
 
 This is not financial advice or proof that a message is fraudulent. Rule-based detection can miss new scam wording or flag genuine messages. Verify claims independently. The app does not provide stock tips, predictions, or buy/sell recommendations.
 
@@ -31,8 +31,10 @@ This is not financial advice or proof that a message is fraudulent. Rule-based d
     uvicorn backend.main:app --reload
     # open http://127.0.0.1:8000
 
-Optional AI explanation (rules still decide the risk level):
-    export ANTHROPIC_API_KEY=your_key      # Windows: set ANTHROPIC_API_KEY=your_key
+Optional Gemini explanation (free-tier limits and data terms apply; rules still decide the risk level):
+    export GEMINI_API_KEY=your_key         # Windows PowerShell: $env:GEMINI_API_KEY="your_key"
+
+Gemini API keys: [Google AI Studio](https://aistudio.google.com/apikey). Optional legacy Anthropic support remains available via `ANTHROPIC_API_KEY`; Gemini takes precedence when both keys are set.
 
 Tests: `python -m unittest discover -s tests -t . -v`. Tests use synthetic examples and are not a real-world accuracy benchmark.
 
@@ -60,7 +62,7 @@ scamshield/
 ```
 
 ## Deploy free
-Push to GitHub, create a Render/Railway web service. Build: `pip install -r requirements.txt`. Start: `uvicorn backend.main:app --host 0.0.0.0 --port $PORT`. Add ANTHROPIC_API_KEY as an env var (optional).
+Push to GitHub, create a Render/Railway web service. Build: `pip install -r requirements.txt`. Start: `uvicorn backend.main:app --host 0.0.0.0 --port $PORT`. Add `GEMINI_API_KEY` as an environment variable only if you want optional AI explanations; otherwise leave it unset.
 
 ## Technology Stack
 - **Frontend**
@@ -71,12 +73,12 @@ Push to GitHub, create a Render/Railway web service. Build: `pip install -r requ
     - Python with FastAPI for the web app and JSON API.
     - Uvicorn for the ASGI server.
     - Pydantic request validation through FastAPI.
-    - `httpx` for the optional Anthropic API request.
+    - `httpx` for optional Gemini or Anthropic API requests.
 - **Detection and tests**
     - A custom, explainable Python rule engine in `backend/rules.py`.
     - Python `unittest` regression tests using synthetic examples.
 - **External services**
-    - Optional Anthropic API for plain-language explanations. The rule engine, not the AI service, determines the score and risk level.
+    - Optional Gemini API for plain-language explanations, with optional legacy Anthropic support. The rule engine, not the AI service, determines the score and risk level.
     - Tesseract.js is loaded from jsDelivr; Google Fonts provides the interface fonts.
 
 ## Project Architecture
@@ -84,7 +86,7 @@ Push to GitHub, create a Render/Railway web service. Build: `pip install -r requ
 2. **Input capture:** The browser accepts pasted text, speech transcripts, or screenshots. Screenshot OCR runs in the browser; the image file itself is not uploaded.
 3. **Analysis request:** The scanner sends the extracted or entered text and selected language to `POST /api/analyze`.
 4. **Rule evaluation:** `backend.rules.analyze()` checks eight warning-signal families and suspicious links, then calculates the score, level, categories, and matched phrases.
-5. **Explanation and guidance:** `backend.main` returns localized explanations and safety steps. If `ANTHROPIC_API_KEY` is configured, message text is also sent to Anthropic to rewrite the explanation; this does not change the rule-based score or level.
+5. **Explanation and guidance:** `backend.main` returns localized explanations and safety steps. If `GEMINI_API_KEY` is configured, message text is sent to Gemini to rewrite the explanation; otherwise, an explicitly configured Anthropic key can be used. This does not change the rule-based score or level.
 6. **Results:** The browser displays the score, warning signals, matched text, and next steps. Recent checks are kept in the current tab only.
 
 The backend has no database and does not log scanned messages. Scanned text is sent to the analysis service but is not stored by the app. See [Privacy and limitations](#privacy-and-limitations) before enabling optional AI explanations.
