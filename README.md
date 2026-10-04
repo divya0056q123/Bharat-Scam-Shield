@@ -36,5 +36,29 @@ Tests: `python -m unittest discover -s tests -t . -v`. Tests use synthetic examp
 ## Deploy free
 Push to GitHub, create a Render/Railway web service. Build: `pip install -r requirements.txt`. Start: `uvicorn backend.main:app --host 0.0.0.0 --port $PORT`. Add ANTHROPIC_API_KEY as an env var (optional).
 
-## Technology
-FastAPI serves the two-page HTML/CSS/JavaScript interface and analysis API. A transparent Python rule engine checks eight signal families plus suspicious links, then returns a score, matched signals, bilingual explanation, and safety steps. Tesseract.js performs English/Hindi screenshot OCR in the browser; voice input uses the Web Speech API. Optional Anthropic API support rewrites the explanation in plain language without controlling the risk score.
+## Technology Stack
+- **Frontend**
+    - HTML5, CSS3, and vanilla JavaScript; no frontend framework or build step.
+    - Tesseract.js 5 for English/Hindi screenshot OCR in the browser.
+    - Web Speech API for browser-based voice input; availability depends on the browser.
+- **Backend**
+    - Python with FastAPI for the web app and JSON API.
+    - Uvicorn for the ASGI server.
+    - Pydantic request validation through FastAPI.
+    - `httpx` for the optional Anthropic API request.
+- **Detection and tests**
+    - A custom, explainable Python rule engine in `backend/rules.py`.
+    - Python `unittest` regression tests using synthetic examples.
+- **External services**
+    - Optional Anthropic API for plain-language explanations. The rule engine, not the AI service, determines the score and risk level.
+    - Tesseract.js is loaded from jsDelivr; Google Fonts provides the interface fonts.
+
+## Project Architecture
+1. **Page delivery:** FastAPI serves the welcome page at `/` and the scanner at `/scan`.
+2. **Input capture:** The browser accepts pasted text, speech transcripts, or screenshots. Screenshot OCR runs in the browser; the image file itself is not uploaded.
+3. **Analysis request:** The scanner sends the extracted or entered text and selected language to `POST /api/analyze`.
+4. **Rule evaluation:** `backend.rules.analyze()` checks eight warning-signal families and suspicious links, then calculates the score, level, categories, and matched phrases.
+5. **Explanation and guidance:** `backend.main` returns localized explanations and safety steps. If `ANTHROPIC_API_KEY` is configured, message text is also sent to Anthropic to rewrite the explanation; this does not change the rule-based score or level.
+6. **Results:** The browser displays the score, warning signals, matched text, and next steps. Recent checks are kept in the current tab only.
+
+The backend has no database and does not log scanned messages. Scanned text is sent to the analysis service but is not stored by the app. See [Privacy and limitations](#privacy-and-limitations) before enabling optional AI explanations.
