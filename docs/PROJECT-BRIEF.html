@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bharat Scan Shield | Project Brief</title>
+<style>
+@page{size:A4;margin:13mm}
+:root{--ink:#142b28;--muted:#526b65;--mint:#087e62;--teal:#138b90;--line:#cbd9d4;--pale:#edf5f1;--amber:#a66a12}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);font:10pt/1.48 "Aptos","Segoe UI",Arial,sans-serif;background:#fff}
+.sheet{max-width:190mm;margin:0 auto}
+.top{display:flex;justify-content:space-between;align-items:center;padding-bottom:9px;border-bottom:2px solid var(--ink);font-size:8pt;color:var(--muted)}
+.brand{color:var(--ink);font-size:10pt;font-weight:800}
+.track{padding:4px 8px;border:1px solid var(--line);border-radius:99px;color:var(--mint);font-weight:700}
+.hero{padding:23px 0 16px;border-bottom:1px solid var(--line)}
+.eyebrow{margin:0 0 7px;color:var(--mint);font-size:8pt;font-weight:800;letter-spacing:1.1px;text-transform:uppercase}
+h1{max-width:150mm;margin:0;font-size:32pt;line-height:1.02;letter-spacing:-.4px}
+.tagline{margin:8px 0 6px;color:var(--teal);font-size:14pt;font-weight:700}
+.lead{max-width:158mm;margin:0;color:#354e48;font-size:11pt}
+.grid{display:grid;grid-template-columns:1.2fr .8fr;gap:8mm;padding-top:14px}
+section{margin:0 0 12px}
+h2{margin:0 0 5px;font-size:11pt}
+p{margin:0 0 5px}
+ul{margin:5px 0 0;padding-left:17px}
+li{margin:0 0 4px}
+.side{padding:10px 11px;background:var(--pale);border-top:3px solid var(--mint)}
+.side h2{margin-bottom:6px}
+.pill-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.pill{padding:3px 7px;border:1px solid #b4cec4;border-radius:99px;font-size:8pt;color:#28574a}
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:7px}
+.flow div{padding:7px;background:#f3f7f5;border-left:2px solid var(--teal);font-size:8.5pt}
+.flow b{display:block;margin-bottom:3px;color:var(--mint)}
+.notice{padding:8px 10px;border-left:3px solid var(--amber);background:#fbf6ec;color:#4c3a1f;font-size:8.5pt}
+.bottom{display:flex;justify-content:space-between;gap:10px;margin-top:10px;padding-top:8px;border-top:1px solid var(--line);color:var(--muted);font-size:8pt}
+a{color:var(--mint);text-decoration:none}
+@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.sheet{max-width:none}}
+</style>
+</head>
+<body>
+<article class="sheet">
+  <div class="top"><span class="brand">BHARAT SCAN SHIELD</span><span class="track">SANGYAN HACKATHON · TRACK A</span></div>
+  <header class="hero">
+    <p class="eyebrow">Investor awareness for India</p>
+    <h1>Pause before you trust a financial message.</h1>
+    <p class="tagline">Pause. Check. Understand.</p>
+    <p class="lead">Bharat Scan Shield helps retail investors inspect suspicious financial content, understand its warning signs, and choose safer next steps.</p>
+  </header>
+  <div class="grid">
+    <div>
+      <section>
+        <h2>The problem</h2>
+        <p>Investment pitches arrive through WhatsApp, Telegram, SMS, and social media. Guaranteed returns, urgency, fake authority claims, and payment requests can pressure people to act before they verify.</p>
+      </section>
+      <section>
+        <h2>How it works</h2>
+        <div class="flow">
+          <div><b>01 · Submit</b>Paste text, speak, or select a screenshot.</div>
+          <div><b>02 · Inspect</b>See matched phrases and weighted warning signals.</div>
+          <div><b>03 · Verify</b>Review practical next steps and check official sources.</div>
+        </div>
+      </section>
+      <section>
+        <h2>Signals it checks</h2>
+        <p>Guaranteed or unusually high returns, urgency, requests for money or sensitive details, investment groups, authority claims, crypto/app pitches, and suspicious links.</p>
+      </section>
+      <section>
+        <h2>Designed for real use</h2>
+        <ul>
+          <li>English and Hindi interface and explanations.</li>
+          <li>Text, voice input, and browser-side screenshot OCR.</li>
+          <li>Matched phrases make warnings explainable, not just a score.</li>
+        </ul>
+      </section>
+    </div>
+    <aside>
+      <section class="side">
+        <h2>Trust and transparency</h2>
+        <ul>
+          <li>Scanned text is sent to the analysis service but not stored by the app.</li>
+          <li>Screenshot files stay on the user's device; OCR runs in the browser.</li>
+          <li>Optional AI explanations send message text to Anthropic when enabled.</li>
+          <li>Recent checks are kept only in the current browser tab.</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Technology</h2>
+        <div class="pill-row"><span class="pill">FastAPI</span><span class="pill">Python rules</span><span class="pill">HTML/CSS/JS</span><span class="pill">Tesseract.js</span><span class="pill">Web Speech API</span><span class="pill">Optional Anthropic API</span></div>
+      </section>
+      <section class="notice">
+        <strong>Important limitation</strong><br>
+        This educational tool is not financial advice or proof of fraud. Rules can miss new scam wording or flag genuine messages. A low score does not mean a message is safe; verify independently.
+      </section>
+      <section>
+        <h2>Project</h2>
+        <p><a href="https://github.com/divya0056q123/Bharat-Scam-Shield">github.com/divya0056q123/Bharat-Scam-Shield</a></p>
+      </section>
+    </aside>
+  </div>
+  <footer class="bottom"><span>Educational investor-awareness tool for Indian users.</span><span>Not financial advice · Verify independently</span></footer>
+</article>
+</body>
+</html>
