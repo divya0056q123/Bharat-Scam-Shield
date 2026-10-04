@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bharat Scan Shield | Pause. Check. Understand.</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#071412;--surface:#102522;--ink:#effbf7;--muted:#b5cbc5;--mint:#49e0aa;--teal:#91eee0;--line:rgba(145,238,224,.2);--amber:#f4c56a}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--ink);font:16px/1.6 "Noto Sans","Noto Sans Devanagari",sans-serif;background:radial-gradient(ellipse at 12% 0%,#194039 0%,transparent 35%),linear-gradient(145deg,#0c201d,#071412 56%,#101f23)}
+.page{max-width:1100px;margin:auto;padding:30px 28px 28px}
+header{display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:18px}
+.brand{font-weight:800;font-size:1.15rem;letter-spacing:0}
+.lang{display:flex;gap:4px;padding:4px;border:1px solid var(--line);border-radius:999px;background:rgba(7,20,18,.55)}
+.lang button{padding:7px 12px;border:0;border-radius:999px;background:transparent;color:var(--muted);font:600 .85rem "Noto Sans","Noto Sans Devanagari",sans-serif;cursor:pointer}
+.lang button.active{background:var(--mint);color:#082019}
+main{padding:clamp(48px,9vh,104px) 0 70px}
+.kicker{display:flex;align-items:center;gap:10px;color:var(--teal);font-size:.78rem;font-weight:800;text-transform:uppercase}
+.kicker:before{content:"";width:28px;height:2px;background:var(--mint)}
+h1{max-width:850px;margin:18px 0 14px;font-size:clamp(2.7rem,7vw,5.5rem);line-height:1.03;font-weight:800;letter-spacing:0}
+.lead{max-width:720px;margin:0;color:#d2e5df;font-size:1.15rem;line-height:1.75}
+.actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin:30px 0 22px}
+.start{display:inline-flex;align-items:center;gap:22px;min-height:54px;padding:0 20px;border-radius:8px;background:var(--mint);color:#082019;text-decoration:none;font-weight:800;box-shadow:0 12px 32px rgba(73,224,170,.15);transition:transform .16s ease,background .16s ease}
+.start:hover{transform:translateY(-2px);background:#72edbd}
+.arrow{font-size:1.25rem;line-height:1}
+.promise{margin:0;color:var(--muted);font-size:.92rem}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:58px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.step{padding:23px 24px 25px 0}
+.step+.step{padding-left:24px;border-left:1px solid var(--line)}
+.number{color:var(--amber);font-size:.78rem;font-weight:800}
+.step h2{margin:9px 0 5px;font-size:1.08rem}
+.step p{margin:0;color:var(--muted);font-size:.91rem}
+.checks{display:grid;grid-template-columns:.8fr 1.2fr;gap:44px;margin-top:58px;padding:30px 0;border-bottom:1px solid var(--line)}
+.section-kicker{color:var(--teal);font-size:.78rem;font-weight:800;text-transform:uppercase}
+.checks h2{margin:7px 0;font-size:1.65rem}
+.checks-intro{max-width:390px;margin:0;color:var(--muted);font-size:.94rem}
+.signal-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 28px;margin:0;padding:0;list-style:none}
+.signal-list li{padding:12px 0;border-bottom:1px solid var(--line);color:#dcebe6;font-size:.94rem}
+.signal-list li:before{content:"+";margin-right:10px;color:var(--mint);font-weight:800}
+.proof-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;padding:26px 0 8px}
+.proof-item strong,.proof-item span{display:block}
+.proof-item strong{margin-bottom:5px;color:var(--ink);font-size:.95rem}
+.proof-item span{color:var(--muted);font-size:.86rem}
+footer{display:flex;justify-content:space-between;gap:24px;padding-top:18px;color:var(--muted);font-size:.85rem}
+footer p{margin:0}
+@media(max-width:640px){.page{padding:20px 18px}.steps{grid-template-columns:1fr;margin-top:42px}.step,.step+.step{padding:17px 0;border-left:0}.step+.step{border-top:1px solid var(--line)}.checks{grid-template-columns:1fr;gap:16px;margin-top:42px}.signal-list{grid-template-columns:1fr}.proof-strip{grid-template-columns:1fr;gap:16px}footer{display:block}footer p+p{margin-top:8px}main{padding-top:62px}h1{font-size:2.8rem}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="page">
+<header>
+  <div class="brand">Bharat Scan Shield</div>
+  <div class="lang" role="group" aria-label="Language">
+    <button type="button" class="active" id="en">English</button>
+    <button type="button" id="hi">हिन्दी</button>
+  </div>
+</header>
+<main>
+  <div class="kicker" id="kicker">Educational investor-awareness tool for Indian users</div>
+  <h1 id="headline">Pause. Check. Understand.</h1>
+  <p class="lead" id="lead">Bharat Scan Shield helps retail investors pause, check, and understand suspicious financial content before they trust it.</p>
+  <div class="actions">
+    <a class="start" id="start" href="/scan?lang=en"><span id="startLabel">Start a check</span><span class="arrow" aria-hidden="true">→</span></a>
+    <p class="promise" id="promise">Not financial advice. Verify independently.</p>
+  </div>
+  <section class="steps" aria-label="How a check works">
+    <article class="step"><span class="number">01</span><h2 id="stepTitle1">Bring the message</h2><p id="stepText1">Paste text, speak, or choose a screenshot.</p></article>
+    <article class="step"><span class="number">02</span><h2 id="stepTitle2">Understand the signs</h2><p id="stepText2">See the specific phrases that may need a closer look.</p></article>
+    <article class="step"><span class="number">03</span><h2 id="stepTitle3">Verify independently</h2><p id="stepText3">Use official sources before sharing money or personal details.</p></article>
+  </section>
+  <section class="checks" aria-labelledby="checksTitle">
+    <div><span class="section-kicker" id="checksKicker">Common warning patterns</span><h2 id="checksTitle">What it looks for</h2><p class="checks-intro" id="checksIntro">The rules look for common pressure tactics and suspicious claims, then show which phrases triggered a warning.</p></div>
+    <ul class="signal-list" aria-label="Warning patterns">
+      <li id="signal1">Guaranteed or unusually high returns</li>
+      <li id="signal2">Pressure to act immediately</li>
+      <li id="signal3">Requests for money or private details</li>
+      <li id="signal4">Suspicious links or false authority claims</li>
+    </ul>
+  </section>
+  <section class="proof-strip" aria-label="Product details">
+    <div class="proof-item"><strong id="proofTitle1">Hindi + English</strong><span id="proofText1">Check messages in either language.</span></div>
+    <div class="proof-item"><strong id="proofTitle2">Explainable signals</strong><span id="proofText2">See the phrases and reasons behind each warning.</span></div>
+    <div class="proof-item"><strong id="proofTitle3">Private by design</strong><span id="proofText3">Screenshots are read on your device; messages are not saved.</span></div>
+  </section>
+</main>
+<footer>
+  <p id="privacy">Scanned text is sent to the analysis service but not saved. Screenshot files stay on your device.</p>
+  <p id="aiDisclosure">If optional AI explanations are enabled, message text is also sent to Anthropic.</p>
+  <p id="disclaimer">Educational use only. This is not financial advice.</p>
+</footer>
+</div>
+<script>
+const copy={en:{kicker:"Educational investor-awareness tool for Indian users",headline:"Pause. Check. Understand.",lead:"Bharat Scan Shield helps retail investors pause, check, and understand suspicious financial content before they trust it.",start:"Start a check",promise:"Not financial advice. Verify independently.",titles:["Bring the message","Understand the signs","Verify independently"],texts:["Paste text, speak, or choose a screenshot.","See the specific phrases that may need a closer look.","Use official sources before sharing money or personal details."],checksKicker:"Common warning patterns",checksTitle:"What it looks for",checksIntro:"The rules look for common pressure tactics and suspicious claims, then show which phrases triggered a warning.",signals:["Guaranteed or unusually high returns","Pressure to act immediately","Requests for money or private details","Suspicious links or false authority claims"],proofTitles:["Hindi + English","Explainable signals","Private by design"],proofTexts:["Check messages in either language.","See the phrases and reasons behind each warning.","Screenshots are read on your device; message text is sent for analysis, not saved."],privacy:"Scanned text is sent to the analysis service but not saved. Screenshot files stay on your device.",disclaimer:"Educational use only. This is not financial advice."},hi:{kicker:"भारतीय उपयोगकर्ताओं के लिए निवेशक-जागरूकता टूल",headline:"रुकें. जाँचें. समझें।",lead:"Bharat Scan Shield निवेशकों को संदिग्ध वित्तीय संदेशों पर भरोसा करने से पहले उन्हें रोककर जाँचने और समझने में मदद करता है।",start:"जाँच शुरू करें",promise:"यह वित्तीय सलाह नहीं है। स्वतंत्र रूप से जाँचें।",titles:["संदेश चुनें","संकेत समझें","स्वतंत्र रूप से जाँचें"],texts:["टेक्स्ट चिपकाएँ, बोलें या स्क्रीनशॉट चुनें।","उन खास शब्दों और वाक्यांशों को देखें जिनकी जाँच ज़रूरी हो सकती है।","पैसे या निजी जानकारी भेजने से पहले आधिकारिक स्रोत देखें।"],checksKicker:"आम चेतावनी संकेत",checksTitle:"यह किन बातों को देखता है",checksIntro:"नियम आम दबाव की तरकीबों और संदिग्ध दावों को खोजते हैं और बताते हैं कि किन शब्दों से चेतावनी मिली।",signals:["गारंटीड या असामान्य रूप से ज़्यादा मुनाफ़ा","तुरंत कदम उठाने का दबाव","पैसे या निजी जानकारी माँगना","संदिग्ध लिंक या झूठे अधिकार के दावे"],proofTitles:["हिन्दी + English","समझने योग्य संकेत","आपकी गोपनीयता"],proofTexts:["दोनों भाषाओं में संदेश जाँचें।","हर चेतावनी के पीछे के शब्द और कारण देखें।","स्क्रीनशॉट आपके डिवाइस पर पढ़े जाते हैं; जाँच के लिए टेक्स्ट भेजा जाता है, सेव नहीं होता।"],privacy:"जाँचा जाने वाला टेक्स्ट विश्लेषण सेवा को भेजा जाता है, पर सेव नहीं होता। स्क्रीनशॉट फ़ाइल आपके डिवाइस पर रहती है।",disclaimer:"केवल शैक्षिक उपयोग के लिए। यह वित्तीय सलाह नहीं है।"}};
+function setLanguage(language){const text=copy[language];document.documentElement.lang=language;for(const id of ["kicker","headline","lead","startLabel","promise","privacy","disclaimer","checksKicker","checksTitle","checksIntro"]){$(id).textContent=text[{startLabel:"start",promise:"promise",privacy:"privacy",disclaimer:"disclaimer"}[id]||id]};for(let index=0;index<3;index++){$("stepTitle"+(index+1)).textContent=text.titles[index];$("stepText"+(index+1)).textContent=text.texts[index];$("proofTitle"+(index+1)).textContent=text.proofTitles[index];$("proofText"+(index+1)).textContent=text.proofTexts[index]}for(let index=0;index<4;index++)$("signal"+(index+1)).textContent=text.signals[index];$("start").href="/scan?lang="+language;$("en").classList.toggle("active",language==="en");$("hi").classList.toggle("active",language==="hi")}
+function $(id){return document.getElementById(id)}
+$("en").onclick=()=>setLanguage("en");$("hi").onclick=()=>setLanguage("hi");
+const aiDisclosure={en:"If optional AI explanations are enabled, message text is also sent to Anthropic.",hi:"वैकल्पिक AI व्याख्या चालू होने पर संदेश का टेक्स्ट Anthropic को भी भेजा जाता है।"};
+$("en").addEventListener("click",()=>$("aiDisclosure").textContent=aiDisclosure.en);$("hi").addEventListener("click",()=>$("aiDisclosure").textContent=aiDisclosure.hi);
+</script>
+</body>
+</html>

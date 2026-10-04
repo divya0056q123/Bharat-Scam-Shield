@@ -71,4 +71,8 @@ def health():
 
 @app.get("/")
 def index():
+    return FileResponse(FRONT / "welcome.html")
+
+@app.get("/scan")
+def scan():
     return FileResponse(FRONT / "index.html")

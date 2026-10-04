@@ -22,5 +22,24 @@ class T(unittest.TestCase):
         r = analyze("Limited seats. Contact immediately. Get guaranteed profit in 7 days.")
         self.assertIn("urgency", r["categories"])
         self.assertIn("guaranteed", r["categories"])
+    def test_score_thresholds(self):
+        cases = [
+            ("Limited seats available today.", 2, "low"),
+            ("Guaranteed returns for investors.", 3, "medium"),
+            ("Guaranteed returns of 30% monthly. Hurry now.", 8, "high"),
+        ]
+        for text, score, level in cases:
+            with self.subTest(text=text):
+                result = analyze(text)
+                self.assertEqual(result["score"], score)
+                self.assertEqual(result["level"], level)
+    def test_hindi_suspicious_message(self):
+        result = analyze("पक्का मुनाफ़ा! 7 दिन में पैसे दोगुना। तुरंत UPI से जमा करें।")
+        self.assertEqual(result["level"], "high")
+        self.assertIn("guaranteed", result["categories"])
+        self.assertIn("payment", result["categories"])
+    def test_official_sebi_url_not_flagged(self):
+        result = analyze("Verify the registered intermediary at https://sebi.gov.in/investor")
+        self.assertNotIn("url", result["categories"])
 if __name__ == "__main__":
     unittest.main()

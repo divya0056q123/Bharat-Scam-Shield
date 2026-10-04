@@ -1,22 +1,22 @@
 # Submission write-up (copy into the form)
 
 ## Problem
-First-time, elderly and regional-language investors get WhatsApp/Telegram/SMS "guaranteed return" offers and cannot tell what is risky. English-heavy tools and complex jargon leave them alone at the moment they most need help.
+First-time and retail investors in India are flooded with WhatsApp, Telegram, SMS, and social-media messages promising quick profit, guaranteed returns, or VIP access to investment groups. Many users are not trained to verify these claims and often act under urgency, pressure, or fear of missing out.
 
 ## Solution
-Bharat Scan Shield lets a user paste, speak or screenshot a suspicious message. It shows a cautious risk level (never "100% scam"), the exact phrases that triggered each warning, a simple explanation in Hindi or English, and safe verification steps (SEBI registered-intermediary list, 1930, cybercrime.gov.in, SEBI SCORES).
+Bharat Scan Shield helps retail investors pause, check, and understand suspicious financial content before they trust it. It is an educational investor-awareness tool for Indian users. A user can paste a message, speak it aloud, or upload a screenshot. The system highlights suspicious phrases, explains the warning signs in simple Hindi or English, and suggests safe next steps such as checking official SEBI sources, contacting trusted family members, and reporting fraud through 1930 or cybercrime.gov.in. Not financial advice; users should verify independently.
 
 ## Technology
-React-free single-page front end (HTML/CSS/JS, loads fast on low bandwidth) -> FastAPI backend -> transparent rule engine (guaranteed returns, unrealistic returns, urgency, payment/OTP requests, group invites, solicitation, authority claims, crypto/app pitches, suspicious links) -> optional LLM that only rewrites the explanation in plain words. OCR: Tesseract.js (English+Hindi) in the browser. Voice: Web Speech API. Third-party: Tesseract.js, Google Fonts, optional Anthropic API.
+Two-page HTML/CSS/JS interface (welcome and scanner, designed for low bandwidth) -> FastAPI backend -> transparent rule engine (guaranteed returns, unrealistic returns, urgency, payment/OTP requests, group invites, solicitation, authority claims, crypto/app pitches, suspicious links) -> optional LLM that only rewrites the explanation in plain words. OCR: Tesseract.js (English+Hindi) in the browser. Voice: Web Speech API. Third-party: Tesseract.js, Google Fonts, optional Anthropic API.
 
 ## Why it is trustworthy
-Explainable (shows matched phrases), uncertainty-aware wording, no storage of messages, screenshots never uploaded, never asks for OTP/PIN, no stock tips, predictions, brokers or monetisation.
+Explainable (shows matched phrases), uncertainty-aware wording, messages are not stored by the app, screenshot files never leave the device, and scans are not financial advice. When optional AI explanations are enabled, message text is sent to Anthropic; the demo discloses this. The tool never asks for OTP/PIN, gives stock tips or predictions, or promotes brokers.
 
 ## Impact and scalability
 Works for the many people who forward "tips" in family groups. Add Tamil, Bengali, Marathi, Telugu by translating the signal dictionary (rules are language-keyed). A WhatsApp bot or SMS-style interface can reuse the same API. Rules can be updated from SEBI/NSDL scam advisories. Public-good, no revenue from users.
 
 ## Limits (say this honestly)
-Rule-based detection can miss new scam wording and can flag genuine messages. It supports a user's own checking and is not proof.
+Rule-based detection can miss new scam wording and can flag genuine messages. Current automated tests use synthetic regression cases; they are not a real-world accuracy benchmark. The tool supports a user's own checking and is not proof.
 
 ## Demo video (4 min)
 0:00 problem (show sample scam) | 0:30 introduce tool | 0:45 paste sample, show result | 1:45 Hindi toggle + voice | 2:30 screenshot upload | 3:00 architecture | 3:30 privacy/guardrails and limits | 3:50 scaling.

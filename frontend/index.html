@@ -33,6 +33,15 @@ textarea:focus,button:focus-visible{outline:none;border-color:rgba(114,240,220,.
 .meta{background:rgba(15,29,29,.8);border:1px solid rgba(114,240,220,.12);border-radius:18px;padding:12px 14px;box-shadow:0 14px 28px rgba(0,0,0,.08)}
 .meta span{display:block;font-size:.75rem;color:var(--mute);text-transform:uppercase;letter-spacing:.08em}
 .meta strong{display:block;margin-top:6px;font-size:1.5rem;color:var(--ink)}
+.score-guide{margin:18px 0 22px;padding:16px 0;border-block:1px solid rgba(114,240,220,.12)}
+.score-heading h2{margin:0;font-size:1rem}
+.score-heading p,.score-caveat{margin:5px 0 0;color:var(--mute);font-size:.84rem}
+.score-bands{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}
+.score-band{padding:7px 11px;border-left:3px solid var(--teal);background:rgba(114,240,220,.045);font-size:.84rem}
+.score-band strong{display:block;color:var(--ink)}
+.score-band.low-band{border-color:var(--ok)}
+.score-band.medium-band{border-color:var(--amber)}
+.score-band.high-band{border-color:var(--red)}
 #out{display:none;background:var(--card);border-radius:26px;padding:22px;border:1px solid rgba(114,240,220,.12);box-shadow:var(--shadow);backdrop-filter:blur(5px)}
 #categoryBadges{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 10px}
 .badge{padding:7px 10px;border-radius:999px;background:rgba(114,240,220,.08);border:1px solid rgba(114,240,220,.14);font-size:.74rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--teal)}
@@ -43,18 +52,21 @@ textarea:focus,button:focus-visible{outline:none;border-color:rgba(114,240,220,.
 h2{font-size:1.08rem;margin:22px 0 6px;color:var(--teal)}
 ul{padding-left:20px}li{margin:6px 0}
 .disc{font-size:.85rem;color:var(--mute);margin-top:18px;border-top:1px solid rgba(114,240,220,.12);padding-top:10px}
+.back-link{display:inline-flex;align-items:center;margin:0 0 18px;color:var(--teal);text-decoration:none;font-weight:700}
+.back-link:hover{text-decoration:underline}
 #recent{margin-top:18px;padding-top:14px;border-top:1px solid rgba(114,240,220,.12)}
 #recentList{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
 #recentList button{border-radius:999px;padding:8px 10px;background:rgba(114,240,220,.05);border:1px solid rgba(114,240,220,.12);color:var(--ink);cursor:pointer}
-@media (max-width: 560px){header{flex-direction:column;align-items:flex-start}h1{font-size:1.9rem}.lang{align-self:stretch;justify-content:center}.btn,.btn.main{width:100%}.samples{gap:8px}.meta-grid{grid-template-columns:1fr;}} 
+@media (max-width: 560px){header{flex-direction:column;align-items:flex-start}h1{font-size:1.9rem}.lang{align-self:stretch;justify-content:center}.btn,.btn.main{width:100%}.samples{gap:8px}.meta-grid,.score-bands{grid-template-columns:1fr;}} 
 </style></head><body><main>
-<header><div><h1>Bharat Scan Shield</h1><p class="tag" id="tag">Scan before you trust.</p></div>
+<a class="back-link" href="/">← Overview</a>
+<header><div><h1>Bharat Scan Shield</h1><p class="tag" id="tag">Pause. Check. Understand.</p></div>
 <div class="lang" role="group" aria-label="Language"><button id="en" class="on">English</button><button id="hi">हिन्दी</button></div></header>
-<div class="hero-badge">AI + rule-based safety checker</div>
+<div class="hero-badge">Educational investor-awareness tool for Indian users</div>
 <div class="hero-pills">
-  <span>Scan</span>
-  <span>Verify</span>
-  <span>Protect</span>
+  <span>Pause</span>
+  <span>Check</span>
+  <span>Understand</span>
 </div>
 
 <label for="msg" id="lbl" class="hint">Paste the message you received</label>
@@ -68,6 +80,8 @@ ul{padding-left:20px}li{margin:6px 0}
  <input type="file" id="img" accept="image/*" hidden>
 </div>
 <p class="hint" id="priv">Your message is not saved. Screenshots are read on your own device.</p>
+<p class="hint" id="educationNote">Educational investor-awareness tool. Not financial advice. Verify independently.</p>
+<p class="hint" id="aiDisclosure">If optional AI explanations are enabled, message text is also sent to Anthropic.</p>
 <div class="samples hint"><span id="trysmp">Try a sample:</span> <a id="s1">English</a><a id="s2">हिन्दी</a><a id="s3">Fake SEBI link</a></div>
 <div id="status" class="hint" role="status"></div>
 <div class="meta-grid" id="metaGrid">
@@ -75,6 +89,15 @@ ul{padding-left:20px}li{margin:6px 0}
   <div class="meta"><span>Signals</span><strong id="signalCount">0</strong></div>
   <div class="meta"><span>Links</span><strong id="linkCount">0</strong></div>
 </div>
+<section class="score-guide" aria-labelledby="scoreGuideTitle">
+  <div class="score-heading"><h2 id="scoreGuideTitle">How to read the score</h2><p id="scoreGuideText">The score adds weights for warning signs found. It is not a probability.</p></div>
+  <div class="score-bands" aria-label="Score levels">
+    <div class="score-band low-band"><strong id="lowRange">0–2 · Low</strong><span id="lowMeaning">Few common signals found</span></div>
+    <div class="score-band medium-band"><strong id="mediumRange">3–6 · Medium</strong><span id="mediumMeaning">Some warning signs found</span></div>
+    <div class="score-band high-band"><strong id="highRange">7+ · High</strong><span id="highMeaning">Several warning signs found</span></div>
+  </div>
+  <p class="score-caveat" id="scoreCaveat">A low score does not prove a message is safe; new scam wording can be missed. Verify independently.</p>
+</section>
 
 <section id="out" aria-live="polite">
  <div class="meter"><i></i><i></i><i></i></div>
@@ -90,23 +113,29 @@ ul{padding-left:20px}li{margin:6px 0}
 </div>
 </main>
 <script>
-const T={en:{tag:"Scan before you trust.",lbl:"Paste the message you received",go:"Check this message",mic:"🎤 Speak",img:"🖼 Upload screenshot",priv:"Your message is not saved. Screenshots are read on your own device.",smp:"Try a sample:",sig:"Warning signs found",steps:"What you can do now",none:"No common warning signs were found.",read:"Reading screenshot…",chk:"Checking…",err:"Could not check. Is the server running?",found:"Found in message: ",copy:"Copied",recent:"Recent checks",clear:"Cleared"},
-hi:{tag:"भरोसा करने से पहले जाँचें।",lbl:"जो संदेश मिला उसे यहाँ चिपकाएँ",go:"संदेश जाँचें",mic:"🎤 बोलें",img:"🖼 स्क्रीनशॉट डालें",priv:"आपका संदेश सेव नहीं होता। स्क्रीनशॉट आपके अपने फ़ोन पर पढ़ा जाता है।",smp:"नमूना आज़माएँ:",sig:"मिले चेतावनी संकेत",steps:"अब आप क्या कर सकते हैं",none:"कोई आम चेतावनी संकेत नहीं मिला।",read:"स्क्रीनशॉट पढ़ रहे हैं…",chk:"जाँच रहे हैं…",err:"जाँच नहीं हो सकी। क्या सर्वर चालू है?",found:"संदेश में मिला: ",copy:"कॉपी हो गया",recent:"हाल की जाँचें",clear:"साफ़ हो गया"}};
+const T={en:{tag:"Pause. Check. Understand.",lbl:"Paste the message you received",go:"Check this message",mic:"🎤 Speak",img:"🖼 Upload screenshot",priv:"Scanned text is sent to the analysis service but not saved. Screenshot files stay on your device.",education:"Educational investor-awareness tool. Not financial advice. Verify independently.",scoreTitle:"How to read the score",scoreText:"The score adds weights for warning signs found. It is not a probability.",lowRange:"0–2 · Low",lowMeaning:"Few common signals found",mediumRange:"3–6 · Medium",mediumMeaning:"Some warning signs found",highRange:"7+ · High",highMeaning:"Several warning signs found",scoreCaveat:"A low score does not prove a message is safe; new scam wording can be missed. Verify independently.",smp:"Try a sample:",sig:"Warning signs found",steps:"What you can do now",none:"No common warning signs were found.",read:"Reading screenshot…",chk:"Checking…",err:"Could not check. Is the server running?",found:"Found in message: ",copy:"Copied",recent:"Recent checks",clear:"Cleared"},
+hi:{tag:"रुकें. जाँचें. समझें।",lbl:"जो संदेश मिला उसे यहाँ चिपकाएँ",go:"संदेश जाँचें",mic:"🎤 बोलें",img:"🖼 स्क्रीनशॉट डालें",priv:"जाँचा जाने वाला टेक्स्ट विश्लेषण सेवा को भेजा जाता है, पर सेव नहीं होता। स्क्रीनशॉट फ़ाइल आपके डिवाइस पर रहती है।",education:"शिक्षा और निवेशक-जागरूकता के लिए। यह वित्तीय सलाह नहीं है। स्वतंत्र रूप से जाँचें।",scoreTitle:"स्कोर को कैसे समझें",scoreText:"यह मिले चेतावनी संकेतों का भारित कुल है, धोखाधड़ी की संभावना नहीं।",lowRange:"0–2 · कम",lowMeaning:"कुछ आम संकेत मिले",mediumRange:"3–6 · मध्यम",mediumMeaning:"कुछ चेतावनी संकेत मिले",highRange:"7+ · ज़्यादा",highMeaning:"कई चेतावनी संकेत मिले",scoreCaveat:"कम स्कोर का मतलब यह नहीं कि संदेश सुरक्षित है; नए तरीकों की पहचान छूट सकती है। स्वतंत्र रूप से जाँचें।",smp:"नमूना आज़माएँ:",sig:"मिले चेतावनी संकेत",steps:"अब आप क्या कर सकते हैं",none:"कोई आम चेतावनी संकेत नहीं मिला।",read:"स्क्रीनशॉट पढ़ रहे हैं…",chk:"जाँच रहे हैं…",err:"जाँच नहीं हो सकी। क्या सर्वर चालू है?",found:"संदेश में मिला: ",copy:"कॉपी हो गया",recent:"हाल की जाँचें",clear:"साफ़ हो गया"}};
 const SMP={s1:"Invest ₹10,000 today and get ₹50,000 guaranteed in 7 days. Limited seats. Contact immediately. Join our VIP group: https://bit.ly/xyz",
 s2:"पक्का मुनाफ़ा! 7 दिन में पैसे दोगुना। सेबी पंजीकृत। आज ही जुड़ें, सीमित सीटें। UPI से ₹5000 जमा करें।",
 s3:"Dear investor, your SEBI-approved account needs verification. Enter your OTP at http://sebi-verify.xyz/login now."};
-let L="en";const $=id=>document.getElementById(id);
-const recentKey="bharat-scan-shield-history";
-function ui(){const t=T[L];document.documentElement.lang=L;$("tag").textContent=t.tag;$("lbl").textContent=t.lbl;$("go").textContent=t.go;$("mic").textContent=t.mic;$("imgbtn").textContent=t.img;$("priv").textContent=t.priv;$("trysmp").textContent=t.smp;$("copyResult").textContent=L=="en"?"Copy result":"परिणाम कॉपी करें";$("clearBtn").textContent=L=="en"?"Clear":"साफ़ करें";$("recent").querySelector("strong").textContent=t.recent;
+let L=new URLSearchParams(window.location.search).get("lang")==="hi"?"hi":"en";const $=id=>document.getElementById(id);
+const recentItems=[];
+function ui(){const t=T[L];document.documentElement.lang=L;$("tag").textContent=t.tag;$("lbl").textContent=t.lbl;$("go").textContent=t.go;$("mic").textContent=t.mic;$("imgbtn").textContent=t.img;$("priv").textContent=t.priv;$("educationNote").textContent=t.education;$("scoreGuideTitle").textContent=t.scoreTitle;$("scoreGuideText").textContent=t.scoreText;$("lowRange").textContent=t.lowRange;$("lowMeaning").textContent=t.lowMeaning;$("mediumRange").textContent=t.mediumRange;$("mediumMeaning").textContent=t.mediumMeaning;$("highRange").textContent=t.highRange;$("highMeaning").textContent=t.highMeaning;$("scoreCaveat").textContent=t.scoreCaveat;$("trysmp").textContent=t.smp;$("copyResult").textContent=L=="en"?"Copy result":"परिणाम कॉपी करें";$("clearBtn").textContent=L=="en"?"Clear":"साफ़ करें";$("recent").querySelector("strong").textContent=t.recent;
+$("recent").querySelector("strong").textContent=t.recent+(L=="en"?" (this tab only)":" (सिर्फ़ यह टैब)");
 $("en").classList.toggle("on",L=="en");$("hi").classList.toggle("on",L=="hi");}
 $("en").onclick=()=>{L="en";ui()};$("hi").onclick=()=>{L="hi";ui()};
+const aiDisclosure={en:"If optional AI explanations are enabled, message text is also sent to Anthropic.",hi:"वैकल्पिक AI व्याख्या चालू होने पर संदेश का टेक्स्ट Anthropic को भी भेजा जाता है।"};
+const privacyDisclosure={en:"Scanned text is sent to the analysis service but not saved. Screenshot files stay on your device.",hi:"जाँचा जाने वाला टेक्स्ट विश्लेषण सेवा को भेजा जाता है, पर सेव नहीं होता। स्क्रीनशॉट फ़ाइल आपके डिवाइस पर रहती है।"};
+function updateAiDisclosure(){$("aiDisclosure").textContent=aiDisclosure[L]}
+function updateDisclosures(){$("priv").textContent=privacyDisclosure[L];updateAiDisclosure()}
+$("en").addEventListener("click",updateDisclosures);$("hi").addEventListener("click",updateDisclosures);
 ["s1","s2","s3"].forEach(k=>$(k).onclick=()=>{$("msg").value=SMP[k]});
 
 function saveRecent(text){
-  try{const arr=JSON.parse(localStorage.getItem(recentKey)||"[]");const next=[text,...arr.filter(x=>x!==text)].slice(0,4);localStorage.setItem(recentKey,JSON.stringify(next));renderRecent();}catch(e){}
+  const next=[text,...recentItems.filter(item=>item!==text)].slice(0,4);recentItems.splice(0,recentItems.length,...next);renderRecent();
 }
 function renderRecent(){
-  try{const arr=JSON.parse(localStorage.getItem(recentKey)||"[]");const list=$("recentList");list.innerHTML="";if(!arr.length){const b=document.createElement("span");b.textContent=L=="en"?"No recent checks yet":"अभी कोई हालिया जाँच नहीं है";list.append(b);return;}arr.forEach(item=>{const b=document.createElement("button");b.type="button";b.textContent=item.length>28?item.slice(0,28)+"…":item;b.onclick=()=>{$("msg").value=item;};list.append(b);});}catch(e){}
+  const list=$("recentList");list.innerHTML="";if(!recentItems.length){const b=document.createElement("span");b.textContent=L=="en"?"No recent checks yet":"अभी कोई हालिया जाँच नहीं है";list.append(b);return;}recentItems.forEach(item=>{const b=document.createElement("button");b.type="button";b.textContent=item.length>28?item.slice(0,28)+"…":item;b.onclick=()=>{$("msg").value=item;};list.append(b);});
 }
 
 $("go").onclick=async()=>{
@@ -146,7 +175,7 @@ $("copyResult").onclick=async()=>{
  const text = [$("label").textContent, $("summary").textContent, [...$("sigs").children].map(el=>el.textContent).join("\n")].join("\n\n");
  try{await navigator.clipboard.writeText(text);$("status").textContent=T[L].copy;}catch(e){$("status").textContent="Copy failed";}
 };
-$("clearBtn").onclick=()=>{$("msg").value="";$("out").style.display="none";$("status").textContent=T[L].clear;};
+$("clearBtn").onclick=()=>{$("msg").value="";$("out").style.display="none";recentItems.length=0;renderRecent();$("status").textContent=T[L].clear;};
 
 // Voice input (browser speech API)
 $("mic").onclick=()=>{const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
@@ -159,5 +188,5 @@ $("img").onchange=async e=>{const f=e.target.files[0];if(!f)return;
  $("status").textContent=T[L].read;
  try{const r=await Tesseract.recognize(f,"eng+hin");$("msg").value=r.data.text.trim();$("status").textContent="";}
  catch(x){$("status").textContent=T[L].err}};
-renderRecent();ui();
+renderRecent();ui();updateDisclosures();
 </script></body></html>
